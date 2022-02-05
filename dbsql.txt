@@ -1,0 +1,63 @@
+create table customers ( Name varchar(30), Address varchar(30), Phone_no char(10) Primary key NOT NULL, Wallet double(7,2) default 0.00);
+
+create table hotels(Hotel_id char(4) Primary key, Hotel_name varchar(50), Phone_no char(10), Address varchar(300), 
+Wallet double(7,2) default 0.00);
+
+create table menu(Menu_id char(4), Menu_name varchar(50), Type varchar(2),Category varchar(30),Price double(8,2),Hotel_id char(4),
+foreign key(Hotel_id) References hotels(Hotel_id), Primary key (Menu_id,Hotel_id));
+
+create table orders(Order_id int Primary key auto_increment, Qty int, Amt double(7,2), Date datetime default CURRENT_TIMESTAMP, 
+Pay_status varchar(20) default 'Pending',Menu_id char(4),Hotel_id char(4), 
+foreign key(Menu_id,Hotel_id) references menu(Menu_id,Hotel_id),
+Phone_no char(10) references customers(Phone_no));
+
+desc customers;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Name     | varchar(30) | YES  |     | NULL    |       |
+| Address  | varchar(30) | YES  |     | NULL    |       |
+| Phone_no | char(10)    | NO   | PRI | NULL    |       |
+| Wallet   | double(7,2) | YES  |     | 0.00    |       |
++----------+-------------+------+-----+---------+-------+
+
+desc hotels;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| Hotel_id   | char(4)      | NO   | PRI | NULL    |       |
+| Hotel_name | varchar(50)  | YES  |     | NULL    |       |
+| Phone_no   | char(10)     | YES  |     | NULL    |       |
+| Address    | varchar(300) | YES  |     | NULL    |       |
+| Wallet     | double(7,2)  | YES  |     | 0.00    |       |
++------------+--------------+------+-----+---------+-------+
+
+desc menu;
+
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Menu_id   | char(4)     | NO   | PRI | NULL    |       |
+| Menu_name | varchar(50) | YES  |     | NULL    |       |
+| Type      | varchar(2)  | YES  |     | NULL    |       |
+| Category  | varchar(30) | YES  |     | NULL    |       |
+| Price     | double(8,2) | YES  |     | NULL    |       |
+| Hotel_id  | char(4)     | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
+desc orders;
++------------+-------------+------+-----+-------------------+-------------------+
+| Field      | Type        | Null | Key | Default           | Extra             |
++------------+-------------+------+-----+-------------------+-------------------+
+| Order_id   | int         | NO   | PRI | NULL              | auto_increment    |
+| Qty        | int         | YES  |     | NULL              |                   |
+| Amt        | double(7,2) | YES  |     | NULL              |                   |
+| Date       | datetime    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| Pay_status | varchar(20) | YES  |     | Pending           |                   |
+| Menu_id    | char(4)     | YES  | MUL | NULL              |                   |
+| Hotel_id   | char(4)     | YES  |     | NULL              |                   |
+| Phone_no   | char(10)    | YES  |     | NULL              |                   |
++------------+-------------+------+-----+-------------------+-------------------+
+
+
+
